@@ -1,0 +1,299 @@
+#include <stdio.h>
+#include <gl/glut.h>
+#define KEY_ESC 27 /* GLUT doesn't supply this */
+
+int fullscreen = 0;
+int mouseDown = 0;
+
+float xrot = 0;
+float yrot = 305;
+
+float xdiff = 100;
+float ydiff = 100;
+
+float tra_x = 0;
+float tra_y = 0;
+float tra_z = 0;
+
+float grow_shrink = 80;
+float resize_f = 1;
+
+void drawBox()
+{
+
+    glTranslatef(tra_x, tra_y, tra_z);
+
+    // BACK VIEW
+    glPushMatrix();
+    glColor3f(0.0f, 0.0f, 1.0f); //biru
+    glTranslatef(-3, 0, 0);
+    glScalef(.05, 5, 3);
+    glutSolidCube(1.0);
+    glPopMatrix();
+
+    // LEFT VIEW
+    glPushMatrix();
+    glColor3f(0.0f, 0.0f, 1.0f);   // biru
+    glTranslatef(-2, 0, -1.5);
+    glScalef(2, 5, .05);
+    glutSolidCube(1.0);
+    glPopMatrix();
+
+    // RIGHT VIEW
+    glPushMatrix();
+    glColor3f(0.0f, 0.0f, 1.0f);  //biru
+    glTranslatef(-2, 0, 1.5);
+    glScalef(2, 5, .05);
+    glutSolidCube(1.0);
+    glPopMatrix();
+
+    // TOP VIEW
+    glPushMatrix();
+    glColor3f(0.0f, 0.0f, 1.0f);  // biru
+    glTranslatef(-2, 2.5, 0);
+    glScalef(2, .05, 3);
+    glutSolidCube(1.0);
+    glPopMatrix();
+
+    // BUTTON VIEW
+    glPushMatrix();
+    glColor3f(0.0f, 0.0f, 1.0f); // biru
+    glTranslatef(-2, -2.3, 0);
+    glScalef(2, .05, 3);
+    glutSolidCube(1.0);
+    glPopMatrix();
+
+    // MID HORIZON VIEW
+    glPushMatrix();
+    glColor3f(0.0f, 3.0f, 3.0f); // biru
+    glTranslatef(-2, .5, 0);
+    glScalef(2, .05, 3);
+    glutSolidCube(1.0);
+    glPopMatrix();
+
+    // MID VERTICAL VIEW
+    glPushMatrix();
+    glColor3f(0.0f, 2.0f, 2.0f); // biru
+    glTranslatef(-2, -0.8, 0);
+    glScalef(2, 2.9, .05);
+    glutSolidCube(1.0);
+    glPopMatrix();
+
+    // FRONT GLASS VIEW
+    glPushMatrix();
+    glColor4f(0.0f, 1.0f, 0.0f, .3); // hijau
+    glTranslatef(-0.97, 0, 0);
+    glScalef(.05, 5, 3);
+    glutSolidCube(1.0);
+    glPopMatrix();
+
+    // FRONT VIEW
+    glPushMatrix();
+    glColor4f(0.75f, 0.75f, 0.75f, 0.75f); // abu-abu
+    glTranslatef(-0.9, 0, 0);
+    glScalef(.05, 5, 3);
+    glutSolidCube(1.0);
+    glPopMatrix();
+
+
+
+
+
+}
+
+int init(void)
+{
+    glClearColor(0.93f, 0.93f, 0.93f, 0.0f);
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
+    glClearDepth(1.0f);
+
+    return 1;
+}
+
+void display(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    gluLookAt(
+        3.0f, 3.0f, 4,
+        0.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f);
+
+    glRotatef(xrot, 1.0f, 0.0f, 0.0f);
+    glRotatef(yrot, 0.0f, 1.0f, 0.0f);
+
+    drawBox();
+
+    glFlush();
+    glutSwapBuffers();
+}
+
+void resize(int w, int h)
+{
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    glViewport(0, 0, w, h);
+
+    gluPerspective(grow_shrink, resize_f * w / h, resize_f, 100 * resize_f);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
+
+void idle(void)
+{
+    if (!mouseDown)
+    {
+        xrot += 0.3f;
+        yrot += 0.4f;
+    }
+
+    glutPostRedisplay();
+}
+
+void mySpecialFunction()
+{
+    // if (key == GLUT_KEY_F1)
+    //{
+    printf("U -----------> rotate clockwise\n");
+    printf("Y -----------> rotate counter clockwise\n");
+    printf("W or w ------> Up\n");
+    printf("S or s -----> Down\n");
+    printf("D or d ------> Right\n");
+    printf("A or a ------> Left\n");
+    printf("Z or z ------> Shrink\n");
+    printf("X or x ------> Grow\n");
+    printf("Escape Key ---> exit the program\n\n");
+    //}
+}
+
+void keyboard(unsigned char key, int x, int y)
+{
+    switch (key)
+    {
+    case 27:
+        exit(1);
+        break;
+
+    case 'w':
+    case 'W':
+        tra_x += 0.1f;
+        break;
+    case 's':
+    case 'S':
+        tra_x -= 0.1f;
+        break;
+    case 'a':
+    case 'A':
+        tra_z += 0.1f;
+        break;
+    case 'd':
+    case 'D':
+        tra_z -= 0.1f;
+        break;
+    case 'u':
+    case 'U':
+        xrot += 1.0f;
+        yrot += 1.0f;
+        xdiff += 1.0f;
+        ydiff += 1.0f;
+        break;
+
+    case 'y':
+    case 'Y':
+        xrot -= 1.0f;
+        yrot -= 1.0f;
+        xdiff += 1.0f;
+        ydiff += 1.0f;
+        break;
+
+    case 'Z':
+    case 'z':
+        grow_shrink--;
+        resize(800, 800);
+
+        break;
+    case 'X':
+    case 'x':
+        grow_shrink++;
+        resize(800, 800);
+
+        break;
+    }
+
+    glutPostRedisplay();
+}
+
+void specialKeyboard(int key, int x, int y)
+{
+    if (key == GLUT_KEY_F1)
+    {
+        fullscreen = !fullscreen;
+
+        if (fullscreen)
+            glutFullScreen();
+        else
+        {
+            glutReshapeWindow(800, 800);
+            glutPositionWindow(80, 80);
+        }
+    }
+}
+
+void mouse(int button, int state, int x, int y)
+{
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+    {
+        mouseDown = 1;
+
+        xdiff = x - yrot;
+        ydiff = -y + xrot;
+    }
+    else
+        mouseDown = 0;
+}
+
+void mouseMotion(int x, int y)
+{
+    if (mouseDown)
+    {
+        yrot = x - xdiff;
+        xrot = y + ydiff;
+
+        glutPostRedisplay();
+    }
+}
+
+int main(int argc, char* argv[])
+{
+    glutInit(&argc, argv);
+
+    glutInitWindowPosition(80, 80);
+    glutInitWindowSize(800, 800);
+
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
+
+    glutCreateWindow("Lemari Lab");
+
+    glutDisplayFunc(display);
+    glutKeyboardFunc(keyboard);
+    glutSpecialFunc(specialKeyboard);
+    glutMouseFunc(mouse);
+    glutMotionFunc(mouseMotion);
+    glutReshapeFunc(resize);
+    mySpecialFunction();
+    // glutIdleFunc(idle);
+
+    if (!init())
+        return 1;
+
+    glutMainLoop();
+
+    return 0;
+}
