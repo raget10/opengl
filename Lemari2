@@ -1,5 +1,8 @@
 #include <stdio.h>
+#include <iostream>
+#include <fstream>
 #include <gl/glut.h>
+#include "getBMP.h"
 #define KEY_ESC 27 /* GLUT doesn't supply this */
 
 int fullscreen = 0;
@@ -18,7 +21,7 @@ float tra_z = 0;
 float grow_shrink = 80;
 float resize_f = 1;
 
-void drawBox()
+void drawBox() //fungsi untuk draw
 {
 
     glTranslatef(tra_x, tra_y, tra_z);
@@ -26,7 +29,7 @@ void drawBox()
 #pragma region MAIN SHAPE
     // BACK VIEW
     glPushMatrix();
-    glColor4f(.75, .75, .75, 1);
+    glColor4f(.75, .75, .80, 1);
     glTranslatef(-3, 0, 0);
     glScalef(.05, 5, 3);
     glutSolidCube(1.0);
@@ -34,7 +37,7 @@ void drawBox()
 
     // LEFT VIEW
     glPushMatrix();
-    glColor4f(.75, .75, .75, 1);
+    glColor4f(.75, .75, .80, 1);
     glTranslatef(-2, 0, -1.5);
     glScalef(2, 5, .05);
     glutSolidCube(1.0);
@@ -42,7 +45,7 @@ void drawBox()
 
     // RIGHT VIEW
     glPushMatrix();
-    glColor4f(.75, .75, .75, 1);
+    glColor4f(.75, .75, .80, 1);
     glTranslatef(-2, 0, 1.5);
     glScalef(2, 5, .05);
     glutSolidCube(1.0);
@@ -50,7 +53,7 @@ void drawBox()
 
     // TOP VIEW
     glPushMatrix();
-    glColor4f(.75, .75, .75, 1);
+    glColor4f(.75, .75, .80, 1);
     glTranslatef(-2, 2.5, 0);
     glScalef(2, .05, 3);
     glutSolidCube(1.0);
@@ -58,7 +61,7 @@ void drawBox()
 
     // BUTTON VIEW
     glPushMatrix();
-    glColor4f(.75, .75, .75, 1);
+    glColor4f(.75, .75, .80, 1);
     glTranslatef(-2, -2.4, 0);
     glScalef(2, .2, 3);
     glutSolidCube(1.0);
@@ -66,7 +69,7 @@ void drawBox()
 
     // MID HORIZON VIEW 2
     glPushMatrix();
-    glColor4f(.6, .6, .6, 1);
+    glColor4f(.6, .6, .65, 1);
     glTranslatef(-2, 1.8, 0);
     glScalef(1.5, .05, 3);
     glutSolidCube(1.0);
@@ -74,7 +77,7 @@ void drawBox()
 
     // MID HORIZON VIEW 2
     glPushMatrix();
-    glColor4f(.6, .6, .6, 1);
+    glColor4f(.6, .6, .65, 1);
     glTranslatef(-2, 1.1, 0);
     glScalef(1.5, .05, 3);
     glutSolidCube(1.0);
@@ -82,7 +85,7 @@ void drawBox()
 
     // MID HORIZON VIEW 3
     glPushMatrix();
-    glColor4f(.6, .6, .6, 1);
+    glColor4f(.6, .6, .65, 1);
     glTranslatef(-2, .5, 0);
     glScalef(2, .05, 3);
     glutSolidCube(1.0);
@@ -90,7 +93,7 @@ void drawBox()
 
     // MID VERTICAL VIEW
     glPushMatrix();
-    glColor4f(.60, .60, .60, 1);
+    glColor4f(.60, .60, .65, 1);
     glTranslatef(-2.2, -1, 0);
     glScalef(1.6, 3, .05);
     glutSolidCube(1.0);
@@ -103,7 +106,7 @@ void drawBox()
 
     // UP GLASS DOOR TRAIL 1
     glPushMatrix();
-    glColor4f(.60, .60, .60, 1);
+    glColor4f(.60, .60, .65, 1);
     glTranslatef(-1.2, 2.45, 0);
     glScalef(.02, .02, 3);
     glutSolidCube(1.0);
@@ -111,8 +114,8 @@ void drawBox()
 
     // UP GLASS DOOR TRAIL 2
     glPushMatrix();
-    glColor4f(.60, .60, .60, 1);
-    glTranslatef(-1.1, 2.45, 0);
+    glColor4f(.60, .60, .65, 1);
+    glTranslatef(-1.2, 2.45, 0);
     glScalef(.02, .02, 3);
     glutSolidCube(1.0);
     glPopMatrix();
@@ -123,7 +126,7 @@ void drawBox()
 
     // UP GLASS DOOR TRAIL 1
     glPushMatrix();
-    glColor4f(.60, .60, .60, 1);
+    glColor4f(.60, .60, .65, 1);
     glTranslatef(-1.2, .55, 0);
     glScalef(.02, .02, 3);
     glutSolidCube(1.0);
@@ -131,7 +134,7 @@ void drawBox()
 
     // UP GLASS DOOR TRAIL 2
     glPushMatrix();
-    glColor4f(.60, .60, .60, 1);
+    glColor4f(.60, .60, .65, 1);
     glTranslatef(-1.1, .55, 0);
     glScalef(.02, .02, 3);
     glutSolidCube(1.0);
@@ -143,7 +146,7 @@ void drawBox()
 
     // FRONT GLASS FRAME UP VIEW
     glPushMatrix();
-    glColor4f(.95, .95, .95, 1);
+    glColor4f(.90, .90, .95, 1);
     glTranslatef(-1.2, 2.4, .75);
     glScalef(.05, .2, 1.5);
     glutSolidCube(1.0);
@@ -151,7 +154,7 @@ void drawBox()
 
     // FRONT GLASS FRAME DOWN VIEW
     glPushMatrix();
-    glColor4f(.95, .95, .95, 1);
+    glColor4f(.90, .90, .95, 1);
     glTranslatef(-1.2, .6, .75);
     glScalef(.05, .2, 1.5);
     glutSolidCube(1.0);
@@ -159,7 +162,7 @@ void drawBox()
 
     // FRONT GLASS FRAME LEFT VIEW
     glPushMatrix();
-    glColor4f(.95, .95, .95, 1);
+    glColor4f(.90, .90, .95, 1);
     glTranslatef(-1.2, 1.5, 1.4);
     glScalef(.05, 1.7, .2);
     glutSolidCube(1.0);
@@ -167,7 +170,7 @@ void drawBox()
 
     // FRONT GLASS FRAME RIGHT VIEW
     glPushMatrix();
-    glColor4f(.95, .95, .95, 1);
+    glColor4f(.90, .90, .90, 1);
     glTranslatef(-1.2, 1.5, .1);
     glScalef(.05, 1.7, .2);
     glutSolidCube(1.0);
@@ -175,7 +178,7 @@ void drawBox()
 
     // FRONT GLASS LEFT VIEW
     glPushMatrix();
-    glColor4f(.95, .95, .95, .5f); // abu-abu
+    glColor4f(.90, .90, .90, .5f); // abu-abu
     glTranslatef(-1.2, 1.5, .75);
     glScalef(.05, 2, 1.5);
     glutSolidCube(1.0);
@@ -186,7 +189,7 @@ void drawBox()
 #pragma region GLASS RIGHT
     // FRONT GLASS FRAME UP VIEW
     glPushMatrix();
-    glColor4f(.95, .95, .95, 1);
+    glColor4f(.90, .90, .95, 1);
     glTranslatef(-1.1, 2.4, 0);
     glScalef(.05, .2, 1.5);
     glutSolidCube(1.0);
@@ -194,7 +197,7 @@ void drawBox()
 
     // FRONT GLASS FRAME DOWN VIEW
     glPushMatrix();
-    glColor4f(.95, .95, .95, 1);
+    glColor4f(.90, .90, .95, 1);
     glTranslatef(-1.1, .6, .0);
     glScalef(.05, .2, 1.5);
     glutSolidCube(1.0);
@@ -202,7 +205,7 @@ void drawBox()
 
     // FRONT GLASS FRAME LEFT VIEW
     glPushMatrix();
-    glColor4f(.95, .95, .95, 1);
+    glColor4f(.90, .90, .95, 1);
     glTranslatef(-1.1, 1.5, .65);
     glScalef(.05, 1.7, .2);
     glutSolidCube(1.0);
@@ -210,7 +213,7 @@ void drawBox()
 
     // FRONT GLASS FRAME RIGHT VIEW
     glPushMatrix();
-    glColor4f(.95, .95, .95, 1);
+    glColor4f(.90, .90, .95, 1);
     glTranslatef(-1.1, 1.5, -.65);
     glScalef(.05, 1.7, .2);
     glutSolidCube(1.0);
@@ -218,7 +221,7 @@ void drawBox()
 
     // FRONT GLASS RIGHT VIEW
     glPushMatrix();
-    glColor4f(.95, .95, .95, .5f); // abu-abu
+    glColor4f(.90, .90, .95, .5f); // abu-abu
     glTranslatef(-1.1, 1.5, 0);
     glScalef(.05, 2, 1.5);
     glutSolidCube(1.0);
@@ -229,7 +232,7 @@ void drawBox()
 #pragma region RAIL DOWN DOOR UP
     // UP GLASS DOOR TRAIL 1
     glPushMatrix();
-    glColor4f(.60, .60, .60, 1);
+    glColor4f(.60, .60, .65, 1);
     glTranslatef(-1.2, .45, 0);
     glScalef(.02, .02, 3);
     glutSolidCube(1.0);
@@ -237,7 +240,7 @@ void drawBox()
 
     // UP GLASS DOOR TRAIL 2
     glPushMatrix();
-    glColor4f(.60, .60, .60, 1);
+    glColor4f(.60, .60, .65, 1);
     glTranslatef(-1.1, .45, 0);
     glScalef(.02, .02, 3);
     glutSolidCube(1.0);
@@ -247,7 +250,7 @@ void drawBox()
 #pragma region RAIL DOWN DOOR DOWN
     // UP DOWN DOOR TRAIL 1
     glPushMatrix();
-    glColor4f(.60, .60, .60, 1);
+    glColor4f(.60, .60, .65, 1);
     glTranslatef(-1.2, -2.3, 0);
     glScalef(.02, .02, 3);
     glutSolidCube(1.0);
@@ -255,7 +258,7 @@ void drawBox()
 
     // UP DOWN DOOR TRAIL 2
     glPushMatrix();
-    glColor4f(.60, .60, .60, 1);
+    glColor4f(.60, .60, .65, 1);
     glTranslatef(-1.1, -2.3, 0);
     glScalef(.02, .02, 3);
     glutSolidCube(1.0);
@@ -266,7 +269,7 @@ void drawBox()
 #pragma region DOWN DOOR LEFT
     // FRONT GLASS LEFT VIEW
     glPushMatrix();
-    glColor4f(.95, .95, .95, 1);
+    glColor4f(.90, .90, .95, 1);
     glTranslatef(-1.2, -1, .75);
     glScalef(.05, 2.9, 1.5);
     glutSolidCube(1.0);
@@ -276,7 +279,7 @@ void drawBox()
 #pragma region DOWN DOOR RIGHT
     // FRONT GLASS RIGHT VIEW
     glPushMatrix();
-    glColor4f(.95, .95, .95, 1);
+    glColor4f(.90, .90, .95, 1);
     glTranslatef(-1.1, -1, -.75);
     glScalef(.05, 2.9, 1.5);
     glutSolidCube(1.0);
@@ -286,7 +289,7 @@ void drawBox()
 #pragma endregion
 }
 
-int init(void)
+int init(void) //fungsi gelap dan terang
 {
     // glClearColor(0.93f, 0.93f, 0.93f, 0.0f);
 
@@ -299,10 +302,14 @@ int init(void)
 
 void display(void)
 {
+    glEnable(GL_BLEND);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glClearColor(0.88f, 0.90f, 0.94f, 1.0f); //bg 
+
+    glClear(GL_COLOR_BUFFER_BIT);
 
     gluLookAt(
         3.0f, 3.0f, 4,
@@ -314,11 +321,13 @@ void display(void)
 
     drawBox();
 
+    glEnable(GL_BLEND);
     glFlush();
     glutSwapBuffers();
+
 }
 
-void resize(int w, int h)
+void resize(int w, int h) //Fungsi ini disebut resize dan digunakan untuk menangani perubahan ukuran jendela (window) OpenGL
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -331,7 +340,7 @@ void resize(int w, int h)
     glLoadIdentity();
 }
 
-void idle(void)
+void idle(void) // digunakan untuk menganimasikan objek atau tindakan tertentu secara otomatis.
 {
     if (!mouseDown)
     {
@@ -342,7 +351,7 @@ void idle(void)
     glutPostRedisplay();
 }
 
-void mySpecialFunction()
+void mySpecialFunction() //tombol spesial memberikan penjelasan tentang tombol-tombol spesial yang dapat digunakan dalam program.
 {
     // if (key == GLUT_KEY_F1)
     //{
@@ -358,7 +367,7 @@ void mySpecialFunction()
     //}
 }
 
-void keyboard(unsigned char key, int x, int y)
+void keyboard(unsigned char key, int x, int y) //fungsi ini akan dipanggil dengan parameter-key tertentu yang merepresentasikan tombol yang ditekan.
 {
     switch (key)
     {
@@ -415,7 +424,7 @@ void keyboard(unsigned char key, int x, int y)
     glutPostRedisplay();
 }
 
-void specialKeyboard(int key, int x, int y)
+void specialKeyboard(int key, int x, int y) // Fungsi ini digunakan untuk mengganti mode layar antara mode fullscreen dan mode jendela biasa ketika tombol F1 ditekan.
 {
     if (key == GLUT_KEY_F1)
     {
@@ -431,7 +440,7 @@ void specialKeyboard(int key, int x, int y)
     }
 }
 
-void mouse(int button, int state, int x, int y)
+void mouse(int button, int state, int x, int y) //Fungsi mouse digunakan untuk menangani input dari mouse. 
 {
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
     {
@@ -444,7 +453,7 @@ void mouse(int button, int state, int x, int y)
         mouseDown = 0;
 }
 
-void mouseMotion(int x, int y)
+void mouseMotion(int x, int y) //Fungsi mouseMotion digunakan lebih spesifik untuk menangani input gerakan dari mouse. 
 {
     if (mouseDown)
     {
@@ -455,7 +464,7 @@ void mouseMotion(int x, int y)
     }
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     glutInit(&argc, argv);
 
@@ -464,7 +473,10 @@ int main(int argc, char *argv[])
 
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
 
-    glutCreateWindow("13 - Solid Shapes");
+    // Set window size and create the window
+    glutInitWindowSize(800, 600);
+
+    glutCreateWindow("Lemari2");
 
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
